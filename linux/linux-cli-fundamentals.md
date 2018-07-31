@@ -219,7 +219,7 @@ In the examples up above we created a pipe called **_unamed pipe_**. It's a pipe
 
 Let's create another pipe. This pipe will be persisted in the file system. It's called **_named pipe_** and is created with the command `mkfifo`
 
-`mkfifo` creates file of type _*pipe*_. It allows one way to the system to execute **inter-process communication**
+`mkfifo` creates files of type _*pipe*_. It allows the system a simple way to execute **inter-process communication**
 
 ```bash
 mkfifo /tmp/piedpipper
