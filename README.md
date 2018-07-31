@@ -1,2 +1,3 @@
 # mydocs
-Notes, resumes and others stuffs
+
+A central point to save study annotations and similar materials.
