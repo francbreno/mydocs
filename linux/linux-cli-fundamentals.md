@@ -487,6 +487,65 @@ Some shortcuts:
 
 ## 7. Search Text Files Using Regular Expressions
 
+### grep
+
+Search for a pattern in a file returning the matched lines.
+
+```bash
+grep username list_of_users.txt
+```
+
+ignoring case
+
+```bash
+grep -i username list_of_users.txt
+```
+
+word boundary with `\b`
+
+```bash
+# ignoring permissions, for example
+grep '\bpermission\b' list_of_users.txt
+```
+
+return only lines that starts with a specific word:
+
+```bash
+grep '^request\b' /etc/dhcp/dhclient.conf
+```
+
+for lines that ends with a specific word:
+
+```bash
+grep '\brequest$' /etc/dhcp/dhclient.conf
+```
+
+other options:
+
+- **-v**: reverse search
+- **-e**: more than one expression
+
+use `^$` for empty lines
+
+removing comments and empty lines
+
+```bash
+grep -ve '^#' -ve '^$' script.sh
+```
+
+### sed
+
+A **_stream_** editor
+
+```bash
+# same as before, but edit directly on the file
+sed -i '/^#/d;/^$/d' script.sh
+```
+
+### More complex expressions
+
+`-E` option: Interpret the pattern string as an extended regular expression.
+
 ## 8. Using vi to Edit Files From the CLI
 
 ```
