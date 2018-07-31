@@ -473,7 +473,7 @@ we can capture info from `top` for only a period of time:
 bash -n 2 -d 3
 ```
 
-the command above captures 2 napshots in a 3'' interval.
+the command above captures 2 snapshots in a 3'' interval.
 
 Some shortcuts:
 
