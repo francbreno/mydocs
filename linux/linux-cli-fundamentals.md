@@ -10,8 +10,8 @@
 
 - Normally tty1 - tty6 (graphical normally is tty7)
 - control + alt + f[id]
-- in console (logout or ctrl + d => exit)
-- who: who (all) is logged in the current terminal
+- in console (`logout` or ctrl + d => exit)
+- `who`: who (one or more) is logged in the current terminal
 - tty: terminal device
 
 ### Pseudo Consoles
@@ -19,33 +19,33 @@
 - virtual consoles
 - /dev/pts/x
 - represent remote connections (SSH (encrypted) or TELNET (not encrypted))
-- Os connections from the GUI
-- w: show info about logged in users
+- OS connections from the GUI
+- `w`: show info about logged in users
 
 ### Others shells
 
-- chsh -l: list all available shells
+- `chsh -l`: list all available shells
   - content from file /etc/shells
     default shell: /etc/passwd
 
 ### ZSH
 
 - change default shell
-  - chsh -s [path-to-shell]
+  - `chsh -s [path-to-shell]`
 
 ### Bash History
 
 - ~/.bash_history
-- ![expr]: run the last command starting with expr
-  - !$: the last argument
-- !?[expr]: execute last command with expr anywhere
+- `![expr]`: run the last command starting with expr
+  - `!$`: the last argument
+- `!?[expr]`: execute last command with expr anywhere
 - ctrl + r: search in history
 
 ## 3. Analyze Text Files
 
-### cat & tac:
+### cat & tac
 
-- cat: join multiple files
+- `cat`: join multiple files
 
 ```bash
 echo "marco" > file1
@@ -71,7 +71,7 @@ another line$
 and another one$
 ```
 
-- tac: cat, but in reverse lines order
+- `tac`: `cat`, but in reverse order
 
 ```bash
 cat myfile
@@ -85,13 +85,13 @@ this is line 1
 - show linux runtime config data:
   - proc file systema: /proc dir
     - dirs named as numbers are the processes
-    - other files are config files
+    - other files are config ones
 
 ### head and tail
 
 first/last n lines of a file
 
-[tail|head] -n [num-lines][file] or tail -[num-lines][file]
+`[tail|head] -n [num-lines][file]` or `tail -[num-lines][file]`
 
 ```bash
 head -2 myfile
@@ -102,7 +102,7 @@ I'm line n-1
 I'm line n
 ```
 
-- [tail|head] -f [file]: watch
+- `[tail|head] -f [file]`: watch
 
 ### sort
 
@@ -214,6 +214,133 @@ drwxr-xr-x 6 fbbs fbbs 4,0K jul 31 22:04 mydocs
 ### alias
 
 - alias ls='ls --lha'
+
+### touch
+
+Change access and modification times to the current time.
+
+Can be used to create an empty file
+
+```bash
+touch new_file
+```
+
+### find
+
+find files in the system
+
+`find [start point path] [options] [filename]`
+
+```bash
+find . settings.conf
+```
+
+If start point not informed, defaults to current dir.
+
+```bash
+find settings.conf
+```
+
+find only files newer than a specific one using `-newer` option:
+
+```bash
+find . -newer newer_file
+```
+
+find all files of a specific type:
+
+```bash
+find /home/username/Donwloads -name '*.mp3'
+```
+
+find all files which name starts with 'log':
+
+```bash
+find /home/username/Donwloads -name 'log*'
+```
+
+find all files which name starts with 'log', but only 1 level deep:
+
+```bash
+find /home/username/Donwloads -maxdepth 1 -name 'log*'
+```
+
+delete found files
+
+```bash
+# delete all files newer than last_file on the current dir
+find -newer last_file -type f -delete
+```
+
+executing commands with found files
+
+```bash
+# find all json files starting with 'audit' and list human readable info.
+# {} is the placeholder of the file. \; is a new line.
+find -name 'audit*.json' -exec ls -lh {} \;
+```
+
+find all files where the size is bigger than 500k
+
+```bash
+find . -size +500k
+```
+
+execute found files
+
+```bash
+# delete all files newer than last_file on the current dir
+find -newer last_file -type f -delete
+```
+
+### tar
+
+utility to extract or store files on an archive
+
+```bash
+# creating a Documents founder backup
+# -c create a file
+# -v verbose output
+# -f name of the file
+tar -cvf documents.tar ~/Documents
+```
+
+use option `-z` to compact the file
+
+```bash
+# compressing with gzip
+tar -czvf documents.tgz ~/Documents
+# using bzip2 to compress (slower but better compression)
+tar -cjvf documents.tar.bz2 ~/Documents
+```
+
+list the file content:
+
+```bash
+# -z used because of compression
+tar -tzf documents.tgz
+```
+
+extracting files:
+
+```bash
+# gzip compressed
+tar -xzvf documents.tgz
+# bz2 compressed
+tar -xjvf documents.tar.bz2
+```
+
+### file
+
+shows the file type
+
+```bash
+file documents.tar
+documents.tar: POSIX tar archive (GNU)
+
+file doc.txt
+doc.txt: ASCII text
+```
 
 ## 5. Command Line Streams and Pipes
 
@@ -653,6 +780,128 @@ sed -i '/^#/d;/^$/d' script.sh
 
 ## 8. Using vi to Edit Files From the CLI
 
+### Operation modes
+
+#### Command
+
+on entering vim
+
+#### Insert / Edit
+
+when editing
+
+`i`: enter insert / edit mode
+`esc`: back to command mode
+
+#### Last Line
+
+`:`: from command mode, enter on Last Line mode
+`esc`: back to command mode
+
+### Exiting from vi / vim
+
+from **command mode**, go to **last line mode** (`:`). type `q` and press `enter`.
+
+To quit without saving changes, use `q!`.
+
+To quit saving changes, use `x` or `wq`. You can use only `w` to just save.
+
+### Some Shortcuts:
+
+- `i`: insert mode starting before cursor position.
+- `I`: start editing on the start of the line where the cursor is.
+- `A`: start editing on the end of the line where the cursor is.
+- `a`: append to the current cursor position.
+- `o`: insert new line below current position.
+- `O`: insert new line above current position.
+- `u`: undo.
+- `x`: on command mode, delete character on the current cursor position.
+- `G`: goes to the end of the file.
+- `[number]G`: goes to a specific line.
+- `dw`: deletes current word.
+- `dd`: deletes the current line.
+- `w`: move to next word
+  - we can jump word using `[number]w`. ex.: `3w` jumps 3 words.
+- `b`: move to previous word.
+  - we can jump words in the same way as `w`.
+- `$`: goes to the end of the current line
+- `^`: goes to the start of the current line
+
+### open files on a specific position
+
+```bash
+# open file a goes to line 54
+vi +54 /home/Documents/resume.txt
+
+# open file and go to the first line with 'users' word
+vi +/users /etc/httpd/httpd.conf
 ```
 
+### Reading and Writting files
+
+### read
+
+in last line mode
+
+```bash
+# read content from a file
+:r my_file.txt
 ```
+
+we can read the output of commands too
+
+```bash
+# read the output of listing /home dir
+:r! ls /home
+```
+
+#### write
+
+in last line mode
+
+```bash
+# save current content to a specific file
+:w destiny_file
+
+# save only some lines
+:10,187w destiny_file
+```
+
+### Searching
+
+using `/` in last line mode
+
+```bash
+# find http_proxy on the current file. press 'n' to go to the next occurency.
+:/http_proxy
+```
+
+### replacing
+
+using `s/[pattern]/[replacement]` in last line mode.
+
+Use `%` to search the whole file.
+
+```bash
+# replace all ocurrencies of 'users' for 'xyz'
+:%s/users/xyz/
+```
+
+replacing occurencies in specific lines
+
+```bash
+# put 'xxx' on the beggining of lines between lines 110 and 156.
+:110,156s/^/xxx/
+```
+
+### configs
+
+system wide:
+
+`/etc/vimrc`
+
+personal config:
+
+`~/.vimrc`
+
+#### TODO: macros and setting configs
