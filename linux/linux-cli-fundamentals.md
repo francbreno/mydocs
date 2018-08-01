@@ -46,18 +46,62 @@
 ### cat & tac:
 
 - cat: join multiple files
-  - with only one file as param: show file content
-  - cat -vet [file]: show EOL markers
+
+```bash
+echo "marco" > file1
+echo "polo" > file2
+cat file1 file2
+marco
+polo
+```
+
+with only one file as param: show file content
+
+```bash
+cat notes.txt
+this is the content of notes.txt
+```
+
+cat -vet [file]: show EOL markers
+
+```bash
+cat -vet doc.txt
+line1$
+another line$
+and another one$
+```
+
 - tac: cat, but in reverse lines order
+
+```bash
+cat myfile
+this is line 1
+this is line 2
+tac myfile
+this is line 2
+this is line 1
+```
+
 - show linux runtime config data:
   - proc file systema: /proc dir
-    - number dirs are the processes
-    - other files with configs
+    - dirs named as numbers are the processes
+    - other files are config files
 
 ### head and tail
 
-- top n lines of a file
-- [tail|head] -n [num-lines][file] or tail -[num-lines][file]
+first/last n lines of a file
+
+[tail|head] -n [num-lines][file] or tail -[num-lines][file]
+
+```bash
+head -2 myfile
+I'm line 1
+And I'm line 2
+tail -2 myfile
+I'm line n-1
+I'm line n
+```
+
 - [tail|head] -f [file]: watch
 
 ### sort
@@ -74,24 +118,46 @@
 - filter columns
   - option -d: especify the field split
 
+```bash
+cut -d: -f1 file
+```
+
 ### more and less
 
 - page through
-- more: for longer files
-- less: "less is more"
+- `more`: for longer files
+- `less`: "less is more"
   - allows pg up, pg down and search
-- use less
+- use `less` in almost all cases
 
 ## 4. Basic File Management
 
 ### cp and mv
 
-- cp: copy
-- mv: move
+`cp`: copy
+
+```bash
+ls
+file1.txt readme.md index.js
+cp file1.txt /home/user1/report.txt
+ls
+file1.txt readme.md index.js
+```
+
+`mv`: move
+
+```bash
+ls
+file1.txt readme.md index.js
+mv index.js /tmp
+ls
+file1.txt readme.md
+```
+
 - params:
-  - -i: interactive
-  - -R: recursive
-  - -a: maintain file user permissions
+  - `-i`: interactive
+  - `-R`: recursive
+  - `-a`: !!! **maintain file user permissions** !!!
 
 ### rm and rmdir
 
@@ -101,10 +167,49 @@
 
 ### ls
 
-- -a: all files
-- -t: order by last date
-- -d: directories only
-- -l: list mode
+- `-a`: all files
+- `-t`: order by last date
+- `-d`: directories only
+- `-l`: list mode
+- `-h`: human readable
+
+```bash
+ls
+d2       f1  f2.gz  f4.gz  forscript.sh  myscript.sh
+destiny  f2  f3.gz  file3  mydocs
+
+ls -l
+total 44
+drwxr-xr-x 2 fbbs fbbs 4096 jul 29 19:59 d2
+drwxr-xr-x 2 fbbs fbbs 4096 jul 29 19:58 destiny
+-rw-r--r-- 1 fbbs fbbs    6 jul 31 21:48 f1
+-rw-r--r-- 1 fbbs fbbs    5 jul 31 21:48 f2
+-rw-r--r-- 1 fbbs fbbs   33 jul 28 19:57 f2.gz
+-rw-r--r-- 1 fbbs fbbs   33 jul 28 19:57 f3.gz
+-rw-r--r-- 1 fbbs fbbs   33 jul 28 19:57 f4.gz
+-rw-r--r-- 1 fbbs fbbs   13 jul 31 21:56 file3
+-rwxr-xr-x 1 fbbs fbbs   74 jul 28 21:42 forscript.sh
+drwxr-xr-x 6 fbbs fbbs 4096 jul 31 22:04 mydocs
+-rwxr-xr-x 1 fbbs fbbs  337 jul 28 21:36 myscript.sh
+
+ls -a
+.   d2       f1  f2.gz  f4.gz  forscript.sh  myscript.sh
+..  destiny  f2  f3.gz  file3  mydocs .hidden_file
+
+ls -lh
+total 44K
+drwxr-xr-x 2 fbbs fbbs 4,0K jul 29 19:59 d2
+drwxr-xr-x 2 fbbs fbbs 4,0K jul 29 19:58 destiny
+-rw-r--r-- 1 fbbs fbbs    6 jul 31 21:48 f1
+-rw-r--r-- 1 fbbs fbbs    5 jul 31 21:48 f2
+-rw-r--r-- 1 fbbs fbbs   33 jul 28 19:57 f2.gz
+-rw-r--r-- 1 fbbs fbbs   33 jul 28 19:57 f3.gz
+-rw-r--r-- 1 fbbs fbbs   33 jul 28 19:57 f4.gz
+-rw-r--r-- 1 fbbs fbbs   13 jul 31 21:56 file3
+-rwxr-xr-x 1 fbbs fbbs   74 jul 28 21:42 forscript.sh
+drwxr-xr-x 6 fbbs fbbs 4,0K jul 31 22:04 mydocs
+-rwxr-xr-x 1 fbbs fbbs  337 jul 28 21:36 myscript.sh
+```
 
 ### alias
 
