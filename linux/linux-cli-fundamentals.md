@@ -1,7 +1,5 @@
 # Linux Command Line Interface (CLI) Fundamentals (Pluralsight)
 
-#### Instructor: Andrew Mallett
-
 ## 1. Introduction
 
 ## 2. Working on the Command Line
@@ -806,7 +804,7 @@ To quit without saving changes, use `q!`.
 
 To quit saving changes, use `x` or `wq`. You can use only `w` to just save.
 
-### Some Shortcuts:
+### Some Shortcuts
 
 - `i`: insert mode starting before cursor position.
 - `I`: start editing on the start of the line where the cursor is.
